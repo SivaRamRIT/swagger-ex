@@ -1,0 +1,85 @@
+{
+  "apiVersion" : "1.1",
+  "swaggerVersion" : "1.0",
+  "basePath" : "https://sandbox.api.yodlee.com/ysl",
+  "resourcePath" : "/statements",
+  "apis" : [ {
+    "path" : "/statements",
+    "description" : "",
+    "operations" : [ {
+      "httpMethod" : "GET",
+      "summary" : "Get Statements",
+      "notes" : "<font size='2px' color='grey' face='Georgia,serif'>The statements service is used to get the list of statement related information. <br/>By default, all the latest statements of active and to be closed accounts are retrieved for the user. <br/>Certain sites do not have both a statement date and a due date. When a fromDate is passed as an <br/>input, all the statements that have the due date on or after the passed date are retrieved. <br/>For sites that do not have the due date, statements that have the statement date <br/>on or after the passed date are retrieved. <br/>The default value of \"isLatest\" is true. To retrieve historical statements isLatest needs to be set to false.<br/><br/><b>Sample Input</b><pre>\tcontainer: loan<br/>\taccountId: 801503<br/>\tisLatest: false<br/>\tstatus: ACTIVE<br/></pre><br/><br/><b>Sample Response</b><pre> {<br/>\"statement\": [<br/>&nbsp;&nbsp;&nbsp;{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"id\": 676866,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"accountId\": \"801503\",<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"statementDate\": \"2015-09-01\",<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"billingPeriodStart\": \"2015-01-01\",<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"billingPeriodEnd\": \"2015-12-30\",<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"dueDate\": \"2016-09-30\",<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"lastPaymentAmount\": {<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp\"amount\": 300,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"currency\": \"USD\"<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"lastPaymentDate\": \"2015-01-25\",<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"isLatest\": false,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"lastUpdated\": \"2015-09-01T19:20:54Z\"<br/>&nbsp;&nbsp;&nbsp;}<br/>]<br/>}</pre><br/></font>",
+      "deprecated" : false,
+      "responseClass" : "String",
+      "nickname" : "getStatements",
+      "errorResponses" : [ {
+        "code" : 400,
+        "reason" : "Y800 : Invalid value for accountId"
+      }, {
+        "code" : 400,
+        "reason" : "Y800 : Invalid value for status"
+      }, {
+        "code" : 400,
+        "reason" : "Y805 : Multiple containers not supported"
+      }, {
+        "code" : 400,
+        "reason" : "Y800 : Invalid value for container"
+      }, {
+        "code" : 400,
+        "reason" : "Y800 : Invalid value for isLatest"
+      }, {
+        "code" : 400,
+        "reason" : "Y800 : Invalid value for fromDate"
+      } ],
+      "parameters" : [ {
+
+        "name" : "accountId",
+        "description" : "accountId",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "String"
+      }, {
+        "name" : "container",
+        "description" : "creditCard/loan/bill/insurance",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "String"
+      }, {
+        "name" : "isLatest",
+        "description" : "isLatest (true/false)",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "String"
+      }, {
+        "name" : "status",
+        "description" : "ACTIVE,INACTIVE,TO_BE_CLOSED,CLOSED",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "String"
+      }, {
+        "name" : "fromDate",
+        "description" : "from date for statement retrieval (YYYY-MM-DD)",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "String"
+      } ]
+    } ]
+  } ],
+  "models" : { }
+}

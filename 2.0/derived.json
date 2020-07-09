@@ -1,0 +1,302 @@
+{
+  "apiVersion" : "1.1",
+  "swaggerVersion" : "1.0",
+  "basePath" : "https://sandbox.api.yodlee.com/ysl",
+  "resourcePath" : "/derived",
+  "apis" : [ {
+    "path" : "/derived/transactionSummary",
+    "description" : "",
+    "operations" : [ {
+      "httpMethod" : "GET",
+      "summary" : "Get Transaction Summary",
+      "notes" : "<font size='2px' color='grey' face='Georgia,serif'>The transaction summary service provides the summary values of transactions for the given date range by category type, high-level categories, or system-defined categories.<br/><br/>Yodlee has the transaction data stored for a day, month, year and week per category as per the availability of user's data. If the include parameter value is passed as details, then summary details will be returned depending on the interval passed-monthly is the default.<br/><br/>Notes:<br/>1.\tDetails can be requested for only one system-defined category<br/>2.\tDates will not be respected for monthly, yearly, and weekly details<br/>3.\tWhen monthly details are requested,  only the fromDate and toDate month will be respected<br/>4.\tWhen yearly details are requested,  only the fromDate and toDate year will be respected<br/>5.\tFor weekly data points, details will be provided for every Sunday date available within the fromDate and toDate<br/><br/><b>Sample Input</b><pre>\taccountId: 12345<br/>\tcategoryId: 101,102<br/>\tgroupBy: CATEGORY<br/>\tfromDate: 2016-01-01<br/>\ttoDate: 2016-02-29<br/>\tcategoryType: EXPENSE<br/>\tinterval: M<br/>\tinclude: details<br/></pre><br/><b>Sample Response</b><pre>{<br/>  \"transactionSummary\": [<br/>    {<br/>      \"categoryType\": \"expense\",<br/>      \"creditTotal\": {<br/>        \"amount\": 50,<br/>        \"currency\": \"USD\"<br/>      },<br/>      \"debitTotal\": {<br/>        \"amount\": 500,<br/>        \"currency\": \"USD\"<br/>      },<br/>      \"categorySummary\": [<br/>        {<br/>          \"categoryId\": 101,<br/>          \"categoryName\": \"Office Expenses\",<br/>          \"debitTotal\": {<br/>            \"amount\": 100,<br/>            \"currency\": \"USD\"<br/>          },<br/>          \"details\": [<br/>            {<br/>              \"date\": \"2016-01-01\",<br/>              \"creditTotal\": {<br/>                \"amount\": 100,<br/>                \"currency\": \"USD\"<br/>              }<br/>            }<br/>          ],<br/>  \t\t\"links\": {<br/>  \t\t\t\"transactions\":<br/>  \t\t\t\"/transactions?accountId=12345&categoryType=EXPENSE&categoryId=101&fromDate=2016-01-01&toDate=2016-02-29\"<br/>\t\t\t}<br/>        },<br/>        {<br/>          \"categoryId\": 102,<br/>          \"categoryName\": \"Personal/Family\",<br/>          \"creditTotal\": {<br/>            \"amount\": 50,<br/>            \"currency\": \"USD\"<br/>          },<br/>          \"debitTotal\": {<br/>            \"amount\": 400,<br/>            \"currency\": \"USD\"<br/>          },<br/>          \"details\": [<br/>            {<br/>              \"date\": \"2016-01-01\",<br/>              \"debitTotal\": {<br/>                \"amount\": 300,<br/>                \"currency\": \"USD\"<br/>              }<br/>            },<br/>            {<br/>              \"date\": \"2016-02-01\",<br/>              \"creditTotal\": {<br/>                \"amount\": 50,<br/>                \"currency\": \"USD\"<br/>              },<br/>              \"debitTotal\": {<br/>                \"amount\": 100,<br/>                \"currency\": \"USD\"<br/>              }<br/>            }<br/>          ],<br/>  \t\t\"links\": {<br/>  \t\t\t\"transactions\": <br/>  \t\t\t\"/transactions?accountId=12345&categoryType=EXPENSE&categoryId=102&fromDate=2016-01-01&toDate=2016-02-29\"<br/>\t\t\t}<br/>        }<br/>      ],<br/>  \t\"links\": {<br/>  \t\t\"transactions\": <br/>  \t\t\"/transactions?accountId=12345&categoryType=EXPENSE&fromDate=2016-01-01&toDate=2016-02-29\"<br/>\t\t}<br/>    }<br/>  ],<br/>  \"links\": {<br/>  \t\"transactions\":<br/>  \t\"/transactions?accountId=12345&categoryType=EXPENSE&fromDate=2016-01-01&toDate=2016-02-29\"<br/>\t}<br/>}<br/></pre></font>",
+      "deprecated" : false,
+      "responseClass" : "String",
+      "nickname" : "getTransactionSummary",
+      "errorResponses" : [ {
+        "code" : 400,
+        "reason" : "Y010 : Invalid session"
+      }, {
+        "code" : 400,
+        "reason" : "Y800 : Invalid value for accountId"
+      }, {
+        "code" : 400,
+        "reason" : "Y800 : Invalid value for groupBy"
+      }, {
+        "code" : 400,
+        "reason" : "Y803 : groupBy required"
+      }, {
+        "code" : 400,
+        "reason" : "Y800 : Invalid value for categoryType"
+      }, {
+        "code" : 400,
+        "reason" : "Y803 : categoryType required"
+      }, {
+        "code" : 400,
+        "reason" : "Y800 : Invalid value for categoryId"
+      }, {
+        "code" : 400,
+        "reason" : "Y800 : Invalid value for fromDate"
+      }, {
+        "code" : 400,
+        "reason" : "Y800 : Invalid value for toDate"
+      }, {
+        "code" : 400,
+        "reason" : "Y800 : Invalid value for fromDate or toDate"
+      }, {
+        "code" : 400,
+        "reason" : "Y800 : Invalid value for fromDate and toDate"
+      }, {
+        "code" : 400,
+        "reason" : "Y814 : Exchange rate not available for currency"
+      }, {
+        "code" : 400,
+        "reason" : "Y815 : Cannot apply filter on categoryId if groupBy value is CATEGORY_TYPE"
+      }, {
+        "code" : 400,
+        "reason" : "Y816 : User-defined category details can only be requested for one system categoryId with groupBy='CATEGORY'"
+      }, {
+        "code" : 400,
+        "reason" : "Y824 : The maximum number of accountIds permitted is 100"
+      }, {
+        "code" : 400,
+        "reason" : "Y824 : The maximum number of categoryIds permitted is 100"
+      }, {
+        "code" : 400,
+        "reason" : "Y824 : The maximum number of categoryTypes permitted is 100"
+      } ],
+      "parameters" : [ {
+
+        "name" : "accountId",
+        "description" : "comma separated account Ids",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "String"
+      }, {
+        "name" : "groupBy",
+        "description" : "CATEGORY_TYPE, HIGH_LEVEL_CATEGORY or CATEGORY",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : true,
+        "allowMultiple" : false,
+        "dataType" : "String"
+      }, {
+        "name" : "categoryType",
+        "description" : "INCOME, EXPENSE, TRANSFER, UNCATEGORIZE or DEFERRED_COMPENSATION",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "String"
+      }, {
+        "name" : "categoryId",
+        "description" : "comma separated categoryIds",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "String"
+      }, {
+        "name" : "fromDate",
+        "description" : "YYYY-MM-DD format",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "String"
+      }, {
+        "name" : "toDate",
+        "description" : "YYYY-MM-DD format",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "String"
+      }, {
+        "name" : "interval",
+        "description" : "D-daily, W-weekly, M-mothly or Y-yearly",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "String"
+      }, {
+        "name" : "include",
+        "description" : "details",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "String"
+      }, {
+        "name" : "includeUserCategory",
+        "description" : "TRUE/FALSE",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "Boolean"
+      } ]
+    } ]
+  }, {
+    "path" : "/derived/holdingSummary",
+    "description" : "",
+    "operations" : [ {
+      "httpMethod" : "GET",
+      "summary" : "Get Holding Summary",
+      "notes" : "<font size='2px' color='grey' face='Georgia,serif'>The get holding summary service is used to get the summary of asset classifications for the user.<br/>By default, accounts with status as ACTIVE and TO BE CLOSED will be considered.<br/>If the include parameter value is passed as details then a summary with holdings and account information is returned.<br/><b>Sample Input</b><pre>\taccountIds: 1111590365,1111589808<br/>\tinclude: details<br/></pre><br/><b>Sample Response</b><pre>{<br/>    \"holdingSummary\": [<br/>        {<br/>            \"classificationType\": \"STOCK TYPE\",<br/>            \"classificationValue\": \"Slow Growth\",<br/>            \"links\": {<br/>                \"holdings\": \"/holdings?include=assetClassification&classificationType=STOCK%20TYPE&classificationValue=Slow%20Growth\"<br/>            },<br/>            \"value\": {<br/>                \"amount\": 300.0,<br/>                \"currency\": \"USD\"<br/>            }<br/>        },<br/>        {<br/>            \"classificationType\": \"STOCK TYPE\",<br/>            \"classificationValue\": \"High Yield\",<br/>            \"links\": {<br/>                \"holdings\": \"/holdings?include=assetClassification&classificationType=STOCK%20TYPE&classificationValue=High%20Yield\"<br/>        \t\t},<br/>            \"value\": {<br/>                \"amount\": 700.0,<br/>                \"currency\": \"USD\"<br/>            }<br/>        },<br/>        {<br/>            \"classificationType\": \"COUNTRY\",<br/>            \"classificationValue\": \"United States\",<br/>            \"links\": {<br/>                \"holdings\": \"/holdings?include=assetClassification&classificationType=COUNTRY&classificationValue=United%20States\"<br/>        \t   },<br/>            \"value\": {<br/>                \"amount\": 750.0,<br/>                \"currency\": \"USD\"<br/>            }<br/>        },<br/>        {<br/>            \"classificationType\": \"COUNTRY\",<br/>            \"classificationValue\": \"Germany\",<br/>            \"links\": {<br/>                \"holdings\": \"/holdings?include=assetClassification&classificationType=COUNTRY&classificationValue=Germany\"<br/>        },<br/>            \"value\": {<br/>                \"amount\": 250.0,<br/>                \"currency\": \"USD\"<br/>            }<br/>        }<br/>    ]<br/>}</pre></font>",
+      "deprecated" : false,
+      "responseClass" : "String",
+      "nickname" : "getAssetClassificationSummary",
+      "errorResponses" : [ {
+        "code" : 400,
+        "reason" : "Y800 : Invalid value for classificationType"
+      }, {
+        "code" : 400,
+        "reason" : "Y814 : Exchange rate not available for currency"
+      }, {
+        "code" : 400,
+        "reason" : "Y824 : The maximum number of accountIds permitted is 100"
+      } ],
+      "parameters" : [ {
+
+        "name" : "include",
+        "description" : "details",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "String"
+      }, {
+        "name" : "accountIds",
+        "description" : "Comma separated accountIds",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "String"
+      }, {
+        "name" : "classificationType",
+        "description" : "e.g. Country, Sector, etc.",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "String"
+      }]
+    } ]
+  }, {
+    "path" : "/derived/networth",
+    "description" : "",
+    "operations" : [ {
+      "httpMethod" : "GET",
+      "summary" : "Get Networth Summary",
+      "notes" : "<font size='2px' color='grey' face='Georgia,serif'>The get networth service is used to get the networth for the user.<br/>If the include parameter value is passed as details then networth with historical balances is returned.<br/><b>Sample Input</b><pre>\tinterval: D<br/>\ttoDate: 2016-02-01<br/>\tfromDate: 2016-02-01<br/>\tinclude: details<br/>\taccountIds: 1111499279,1111499281</pre><br/><br/><b>Sample Response</b><pre> {<br/>\"networth\": [<br/>&nbsp;&nbsp;&nbsp;{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"date\": \"2016-02-01\",<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"asset\": {<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"amount\": 123.34,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"currency\": \"USD\"<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}, <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"liability\": {<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"amount\": 2000,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"currency\": \"USD\"<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}, <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"networth\": {<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"amount\": -1876.66,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"currency\": \"USD\"<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} <br/>&nbsp;&nbsp;&nbsp;},<br/>&nbsp;&nbsp;&nbsp;&nbsp;{<br/>&nbsp;&nbsp;&nbsp;\"historicalBalances\": [<br/>&nbsp;&nbsp;&nbsp;&nbsp;{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"accountId\": 1111499281,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"isAsset\": true,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"date\": \"2016-02-01\",<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"asOfDate\": \"2016-02-01T16:48:53Z\",<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"balance\": {<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"amount\": 123.34,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"currency\": \"USD\"<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}, <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"dataSourceType\": \"S\"<br/>&nbsp;&nbsp;&nbsp;},<br/>&nbsp;&nbsp;&nbsp;{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"accountId\": 1111499279,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"isAsset\": false,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"date\": \"2016-02-01\",<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"asOfDate\": \"2016-01-29T18:32:45Z\",<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"balance\": {<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"amount\": 2000,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"currency\": \"USD\"<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}, <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"dataSourceType\": \"CF\"<br/>&nbsp;&nbsp;&nbsp;} ]<br/>}<br/>]<br/>}</pre><br/></font>",
+      "deprecated" : false,
+      "responseClass" : "String",
+      "nickname" : "getNetworthSummary",
+      "errorResponses" : [ {
+        "code" : 400,
+        "reason" : "Y800 : Invalid value for accountIds"
+      }, {
+        "code" : 400,
+        "reason" : "Y800 : Invalid value for fromDate"
+      }, {
+        "code" : 400,
+        "reason" : "Y800 : Invalid value for toDate"
+      }, {
+        "code" : 400,
+        "reason" : "Y809 : Invalid date range"
+      }, {
+        "code" : 400,
+        "reason" : "Y800 : Invalid value for interval"
+      }, {
+        "code" : 400,
+        "reason" : "Y802 : Future date not allowed"
+      }, {
+        "code" : 400,
+        "reason" : "Y814 : Exchange rate not available for currency"
+      } ],
+      "parameters" : [ {
+
+        "name" : "accountIds",
+        "description" : "comma separated accountIds",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "String"
+      }, {
+        "name" : "include",
+        "description" : "details",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "String"
+      }, {
+        "name" : "fromDate",
+        "description" : "from date for balance retrieval (YYYY-MM-DD)",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "String"
+      }, {
+        "name" : "toDate",
+        "description" : "toDate for balance retrieval (YYYY-MM-DD)",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "String"
+      }, {
+        "name" : "interval",
+        "description" : "D-daily, W-weekly or M-monthly",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "String"
+      }, {
+        "name" : "skip",
+        "description" : "skip (Min 0)",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "Integer"
+      }, {
+        "name" : "top",
+        "description" : "top (Max 500)",
+        "notes" : "",
+        "paramType" : "query",
+        "defaultValue" : "",
+        "required" : false,
+        "allowMultiple" : false,
+        "dataType" : "Integer"
+      } ]
+    } ]
+  } ],
+  "models" : { }
+}
